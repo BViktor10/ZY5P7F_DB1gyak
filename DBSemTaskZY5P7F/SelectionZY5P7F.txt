@@ -1,0 +1,44 @@
+SELECT Elnokok, Tisztseg_kep FROM Egeszsegugyi_miniszterium;
+
+SELECT Eu_miniszter, Allamtitkar
+FROM Egeszsegugyi_miniszterium
+WHERE NOT Eu_miniszter="Not null";
+
+SELECT Pu_miniszter, Allamtitkar
+FROM Penzugyi_miniszterium
+WHERE NOT Pu_miniszter="Not null";
+
+SELECT Elnokok, Tisztseg_kep FROM Penzugyi_miniszterium;
+
+SELECT count(Termek_ID)
+FROM Gyarto;
+
+SELECT sum(Raktaron)
+FROM Gyarto;
+
+SELECT sum(Legyartanivalo)
+FROM Gyarto;
+
+SELECT sum(Legyartanivalo) - sum(Raktaron)
+FROM Gyarto;
+
+SELECT Klinikak.Igazgato, Kiszallitoceg.Csomagnev
+FROM Klinikak
+INNER JOIN Kiszallitoceg ON Klinikak.Csomag_ID = Kiszallitoceg.Csomag_ID;
+
+SELECT Klinikak_Cim.Cim, Klinikak.Igazgato, Kiszallitoceg.Csomagnev
+FROM Klinikak
+INNER JOIN Kiszallitoceg ON Klinikak.Csomag_ID = Kiszallitoceg.Csomag_ID INNER JOIN Klinikak_Cim ON Klinikak_Cim.Igazgato_ID = Klinikak.Igazgato_ID;
+
+SELECT Klinikak_Cim.Cim, Klinikak.Igazgato, Kiszallitoceg.Csomagnev
+FROM Klinikak
+INNER JOIN Kiszallitoceg ON Klinikak.Csomag_ID = Kiszallitoceg.Csomag_ID INNER JOIN Klinikak_Cim ON Klinikak_Cim.Igazgato_ID = Klinikak.Igazgato_ID;
+
+SELECT Gyarto_Gyar.Gyar, Kiszallitoceg.Csomagnev, Gyarto.Legyartanivalo
+FROM Feladas
+INNER JOIN Kiszallitoceg ON Feladas.Csomag_ID = Kiszallitoceg.Csomag_ID INNER JOIN Gyarto ON Gyarto.Termek_ID = Feladas.Termek_ID INNER JOIN Gyarto_Gyar ON Gyarto_Gyar.Termek_ID = Gyarto.Termek_ID;
+
+SELECT Gyarto_Gyar.Gyar, Kiszallitoceg.Csomagnev, Gyarto.Legyartanivalo
+FROM Feladas
+INNER JOIN Kiszallitoceg ON Feladas.Csomag_ID = Kiszallitoceg.Csomag_ID INNER JOIN Gyarto ON Gyarto.Termek_ID = Feladas.Termek_ID INNER JOIN Gyarto_Gyar ON Gyarto_Gyar.Termek_ID = Gyarto.Termek_ID
+WHERE Gyar="TEVA";

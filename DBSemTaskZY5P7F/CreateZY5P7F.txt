@@ -1,0 +1,88 @@
+
+CREATE TABLE Penzugyi_miniszterium
+(
+  Allamtitkár CHAR(20) NOT NULL,
+  Puminiszter_ID INT NOT NULL,
+  Pu_miniszter CHAR(20) NOT NULL,
+  Tisztseg_kep CHAR(20) NOT NULL,
+  Elnokok CHAR(20) NOT NULL,
+  PRIMARY KEY (Puminiszter_ID)
+);
+
+CREATE TABLE Gyarto
+(
+  Tulajdonos CHAR(20) NOT NULL,
+  Termek_ID INT NOT NULL,
+  Raktaron INT NOT NULL,
+  Legyartanivalo INT NOT NULL,
+  Puminiszter_ID INT NOT NULL,
+  PRIMARY KEY (Termek_ID),
+  FOREIGN KEY (Puminiszter_ID) REFERENCES Penzugyi_miniszterium(Puminiszter_ID)
+);
+
+CREATE TABLE Kiszallitoceg
+(
+  Igazgato CHAR(20) NOT NULL,
+  Igazgato_ID INT NOT NULL,
+  Csomag_ID INT NOT NULL,
+  PRIMARY KEY (Csomag_ID)
+);
+
+CREATE TABLE Feladas
+(
+  Feladas_ideje INT NOT NULL,
+  Termek_ID INT NOT NULL,
+  Csomag_ID INT NOT NULL,
+  PRIMARY KEY (Termek_ID, Csomag_ID),
+  FOREIGN KEY (Termek_ID) REFERENCES Gyarto(Termek_ID),
+  FOREIGN KEY (Csomag_ID) REFERENCES Kiszallitoceg(Csomag_ID)
+);
+
+CREATE TABLE Gyarto_Gyar
+(
+  Gyar INT NOT NULL,
+  Termek_ID INT NOT NULL,
+  PRIMARY KEY (Gyar, Termek_ID),
+  FOREIGN KEY (Termek_ID) REFERENCES Gyarto(Termek_ID)
+);
+
+CREATE TABLE Kiszallitoceg_Telephelyek
+(
+  Telephelyek CHAR(20) NOT NULL,
+  Csomag_ID INT NOT NULL,
+  PRIMARY KEY (Telephelyek, Csomag_ID),
+  FOREIGN KEY (Csomag_ID) REFERENCES Kiszallitoceg(Csomag_ID)
+);
+
+CREATE TABLE Egeszsegugyi_miniszterium
+(
+  Elnokok CHAR(20) NOT NULL,
+  Tisztseg_kep CHAR(20) NOT NULL,
+  Eu_miniszter CHAR(20) NOT NULL,
+  Euminiszter_ID INT NOT NULL,
+  Allamtitkar CHAR(20) NOT NULL,
+  Puminiszter_ID INT NOT NULL,
+  PRIMARY KEY (Euminiszter_ID),
+  FOREIGN KEY (Puminiszter_ID) REFERENCES Penzugyi_miniszterium(Puminiszter_ID)
+);
+
+CREATE TABLE Klinikak
+(
+  Igazgato CHAR(20) NOT NULL,
+  Igazgato_ID INT NOT NULL,
+  Fotitkar CHAR(20) NOT NULL,
+  Euminiszter_ID INT NOT NULL,
+  Csomag_ID INT NOT NULL,
+  PRIMARY KEY (Igazgato_ID),
+  FOREIGN KEY (Euminiszter_ID) REFERENCES Egeszsegugyi_miniszterium(Euminiszter_ID),
+  FOREIGN KEY (Csomag_ID) REFERENCES Kiszallitoceg(Csomag_ID)
+);
+
+CREATE TABLE Klinikak_Cim
+(
+  Cim CHAR(30) NOT NULL,
+  Igazgato_ID INT NOT NULL,
+  PRIMARY KEY (Cim, Igazgato_ID),
+  FOREIGN KEY (Igazgato_ID) REFERENCES Klinikak(Igazgato_ID)
+);
+
