@@ -1,0 +1,29 @@
+- Könyvek darabszáma:
+SELECT COUNT(isbn) AS KonyvekSzama FROM Konyv;
+πCOUNT(isbn)(Konyv)
+
+- Könyvek átlagára:
+SELECT AVG(ar) AS AtlagAr FROM Konyv;
+πAVG(ar)(Konyv)
+
+- Legolcsóbb könyv ára:
+SELECT MIN(ar) AS LegolcsobbAr FROM Konyv;
+πMIN(ar)(Konyv)
+
+- Az ‘AB’ kategóriájú könyvek darabszáma:
+SELECT COUNT(isbn) AS KonyvekDB FROM Konyv WHERE targy='AB';
+πCOUNT(isbn)σtargy='AB'(Konyv)
+
+
+- A legdrágább AB kategóriájú könyv ára:
+SELECT MAX(ar) AS MaxAr FROM Konyv WHERE targy='AB';
+πMAX(ar)σtargy='AB'(Konyv)
+
+- Az átlagárnál drágább könyvek címei:
+SELECT cim FROM Konyv WHERE ar>avg(ar);
+πcim σar>AVG(ar)(Konyv)
+
+- Az átlagárnál drágább könyvek darabszáma:
+SELECT COUNT(isbn) FROM Konyv HAVING ar>avg(ar);
+πCOUNT(isbn) σar>AVG(ar)(Konyv)
+

@@ -1,0 +1,19 @@
+- Könyvek címei:
+SELECT cim FROM Konyv;
+πcim(Konyv)
+
+- 2000-nél drágább könyvek:
+SELECT * FROM Konyv HAVING ar>2000;
+σar>2000(Konyv)
+
+- 1000-nél olcsóbb könyvek címei:
+SELECT cim FROM Konyv HAVING ar<1000;
+πcim σar<1000(Konyv)
+
+- Tárgyak nevei:
+SELECT targy FROM Konyv;
+πtargy(Konyv)
+
+- Az 'AB' tárgyú könyvek címe és ára:
+SELECT cim, ar FROM Konyv WHERE targy='AB';
+πcim, ar σtargy='AB'(Konyv)
